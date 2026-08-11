@@ -1,0 +1,281 @@
+import csv
+
+
+
+
+# valores de cada tipo de alocação quarto unitario // pode ser dividio em ate 5 vezes
+valor_imobiliaria = 2000
+valor_apartamento = 700
+valor_casa = 900
+valor_studio = 1200
+valor_garagem = ''
+valor_total = 0
+
+# mensagem de boas vindas
+print('\n\t ---- Bem-vindo ao sistema de orçamento de aluguel! ----\n')
+
+# solicitando o nome do cliente
+nome_cliente = input('\n\tDigite seu nome: ')
+
+
+print('-'*50)
+
+# mostrando tipos de alocAção ao cliente
+print('\tTipos de alocação disponíveis: \n'
+    '\n(1) Apartamento' 
+    '\n(2) Casa'
+    '\n(3) Studio'
+    )
+
+print('-' * 50)
+
+tipo_alocacao = 0
+
+# fluxo para tipo de alocação, caso o cliente digite uma opção invalida, o sistema irá solicitar novamente a opção
+while tipo_alocacao != '1' and tipo_alocacao != '2' and tipo_alocacao != '3':
+
+
+    tipo_alocacao = input(f'\n\tDigite o tipo de alocação desejada {nome_cliente}: ')
+
+
+    if tipo_alocacao != '1' and tipo_alocacao != '2' and tipo_alocacao != '3':
+            
+        print('\n')
+        print('Opção invalida, digite novamente!')
+        print('-' * 50)
+
+
+
+# alocação apartamento
+if tipo_alocacao == '1':
+
+    print('-' * 50)
+    print('\n')
+    print('Você escolheu apartamento!')
+    valor_total = valor_apartamento
+    print('\n')
+    print('-' * 50)
+
+
+    possui_criacas = 0
+    while possui_criacas != 'S' and possui_criacas != 'N':
+
+        possui_criacas = input('\nInforma se a crianças (s) Sim (n) Não: ').upper()
+
+        if possui_criacas != 'S' and possui_criacas != 'N':
+
+            print('Digite a informação correta.')
+
+    if possui_criacas == 'N':
+
+        valor_total *= 0.95
+
+# alocação casa
+if tipo_alocacao == '2':
+
+    print('-' * 50)
+    print('\n')
+    print('Você escolheu casa!')
+    valor_total = valor_casa
+    print('\n')
+    print('-' * 50)
+
+# alocação studio
+if tipo_alocacao == '3':
+
+    print('-' * 50)
+    print('\n') 
+    print('Você escolheu studio!')
+    valor_total = valor_studio
+    print('\n')
+    print('-' * 50)
+
+
+quarto_extra = 0
+
+while quarto_extra != 'S' and quarto_extra != 'N' and tipo_alocacao != '3':  
+
+    #perguntando sobre mais quartos
+    quarto_extra = input('\n\tDeseja quarto extra (s) Sim ou Não (n): ').upper()
+
+    if quarto_extra != 'S' and quarto_extra != 'N':
+
+        print('-' * 50)
+        print('\n')
+        print('Opção invalida, digite novamente!')
+        print('\n')
+        print('-' * 50)
+
+if quarto_extra == 'S' and tipo_alocacao == '1':
+
+    print('-' * 50)
+    print('\n')
+    print('Você escolheu quarto extra!')
+    valor_total += 200
+    print('\n')
+    print('-' * 50)
+
+if quarto_extra == 'S' and tipo_alocacao == '2':
+
+    print('-' * 50)
+    print('\n')
+    print('Você escolheu quarto extra!')
+    valor_total += 250
+    print('\n')
+    print('-' * 50)
+
+
+if quarto_extra == 'N':
+
+    print('-' * 50)
+    print('\n')
+    print('Não aplicado quarto extra!')
+    print('\n')
+    print('-' * 50)
+
+
+
+garagem = 0
+
+while garagem != 'S' and garagem != 'N':
+
+    garagem = input('\n\tDeseja garagem (s) Sim ou Não (n): ').upper()
+    print('-' * 50)
+    print('\n')
+
+    if garagem != 'S' and garagem != 'N': 
+        
+        print('Opção invalida, digite novamente!')
+        print('\n')
+        print('-' * 50)
+
+if garagem == 'S' and tipo_alocacao == '1':
+
+    print('Você escolheu garagem para casa!')     
+    valor_total += 300
+    print('\n')
+    print('-' * 50)
+
+if garagem == 'S' and tipo_alocacao == '2':
+    
+    print('Você escolheu garagem para apartamento!')     
+    valor_total += 300
+    print('\n')
+    print('-' * 50)
+
+if garagem == 'S' and tipo_alocacao == '3':
+
+    print('Você escolheu garagem para studio!')  
+    valor_total += 250
+    print('\n')
+    print('-' * 50)
+
+
+    garagem_acrescentar = 0
+    while garagem_acrescentar != 'S' and garagem_acrescentar != 'N':
+
+        garagem_acrescentar = (input('Deseja acrescentar mais vagas na garagem (s) Sim ou Não (n): ').upper())
+
+
+        print('\n')
+        print('-'* 50)
+
+        if garagem_acrescentar != 'S' and garagem_acrescentar != 'N':
+
+            print('Opção invalida, digite novamente!')
+            print('\n')
+            print('-' * 50)
+
+    if garagem_acrescentar == 'S' and tipo_alocacao == '3':
+
+        vagas_acrescentar = int(input('\nDigite a quantidade de vagas que deseja acrescentar: '))
+        vagas_acrescentar_valor = vagas_acrescentar *60
+
+        print('\n')
+        print(f'Valor das vagas acrescentadas R$ {vagas_acrescentar_valor}')
+        valor_total += vagas_acrescentar_valor
+        print('\n')
+        print('-'* 50)  
+   
+
+if garagem == 'N':
+    
+    print('Não aplicado garagem!')
+    print('\n')
+    print('-' * 50)
+    
+
+
+parcelas_imobiliaria = 0
+
+while parcelas_imobiliaria < 1 or parcelas_imobiliaria > 5:
+
+    parcelas_imobiliaria = int(input('\nDigite a quantidade de parcelas que deseja pagar a imobiliária (1 a 5): '))
+
+    print('-'*50)
+
+    if parcelas_imobiliaria < 1 or parcelas_imobiliaria > 5:
+
+        print('\n')
+        print('Opção invalida, digite novamente!')
+        print('-' * 50)
+
+
+valor_parcelas = valor_imobiliaria / parcelas_imobiliaria
+
+
+def imprimir_informacoes(nome_cliente, tipo_alocacao, quarto_extra, garagem, valor_total, parcelas_imobiliaria, valor_parcelas):
+
+    return print(f'\nNome do cliente: {nome_cliente}',
+                 f'\nTipo de alocação: {tipo_alocacao}',
+                 f'\nQuarto extra: {quarto_extra}',
+                 f'\nGaragem: {garagem}',
+                 f'\nValor total: R${valor_total:.2f}',
+                 f'\nParcelas imobiliária: {parcelas_imobiliaria}', 
+                 f'\nValor por parcela: R${valor_parcelas:.2f}\n')
+
+
+def gerar_csv(nome_cliente, valor_total):
+
+    with open('orcamento.csv', 'w', newline='', encoding='utf-8') as arquivo:
+
+        escritor = csv.writer(arquivo)
+
+        escritor.writerow(['Cliente', 'Parcela', 'Valor'])
+
+        for parcela in range(1, 13):
+
+            escritor.writerow([
+                nome_cliente,
+                parcela,
+                f'{valor_total:.2f}'
+            ])
+
+    print('\n----- PARCELAS DO ORÇAMENTO -----')
+
+    for parcela in range(1, 13):
+
+        print(
+            f'Cliente: {nome_cliente} | '
+            f'Parcela: {parcela} | '
+            f'Valor: R$ {valor_total:.2f}'
+        )
+
+    print('---------------------------------')
+    print('\nArquivo orcamento.csv gerado com sucesso!')
+
+
+imprimir_informacoes(nome_cliente, 
+                     tipo_alocacao, 
+                     quarto_extra, 
+                     garagem, 
+                     valor_total,
+                     parcelas_imobiliaria,
+                     valor_parcelas)
+
+
+gerar_csv(nome_cliente, valor_total)
+
+
+
+
