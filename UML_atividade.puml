@@ -1,0 +1,124 @@
+@startuml
+
+title Sistema de Orçamento de Aluguel - Diagrama de Atividades
+
+start
+
+:Importar biblioteca CSV;
+:Inicializar valores;
+
+:Exibir mensagem de boas-vindas;
+:Solicitar nome do cliente;
+
+:Exibir tipos de alocação;
+:Solicitar tipo de alocação;
+
+while (Tipo de alocação válido?) is (Não)
+    :Exibir opção inválida;
+    :Solicitar tipo de alocação novamente;
+endwhile (Sim)
+
+if (Apartamento?) then (Sim)
+    :Definir valor = R$ 700;
+    :Solicitar informação sobre crianças;
+
+    while (Resposta válida?) is (Não)
+        :Solicitar informação novamente;
+    endwhile (Sim)
+
+    if (Possui crianças?) then (Sim)
+        :Manter valor;
+    else (Não)
+        :Aplicar desconto de 5%;
+    endif
+
+elseif (Casa?) then (Sim)
+    :Definir valor = R$ 900;
+
+else (Studio)
+    :Definir valor = R$ 1.200;
+endif
+
+if (É Studio?) then (Não)
+    :Solicitar quarto extra;
+
+    while (Resposta válida?) is (Não)
+        :Exibir opção inválida;
+        :Solicitar quarto extra novamente;
+    endwhile (Sim)
+
+    if (Quarto extra?) then (Sim)
+        if (Apartamento?) then (Sim)
+            :Adicionar R$ 200;
+        else (Casa)
+            :Adicionar R$ 250;
+        endif
+    else (Não)
+        :Não adicionar quarto extra;
+    endif
+else (Sim)
+    :Não solicitar quarto extra;
+endif
+
+:Solicitar garagem;
+
+while (Resposta válida?) is (Não)
+    :Exibir opção inválida;
+    :Solicitar garagem novamente;
+endwhile (Sim)
+
+if (Possui garagem?) then (Sim)
+
+    if (Apartamento?) then (Sim)
+        :Adicionar R$ 300;
+
+    elseif (Casa?) then (Sim)
+        :Adicionar R$ 300;
+
+    else (Studio)
+        :Adicionar R$ 250;
+        :Solicitar vagas adicionais;
+
+        while (Resposta válida?) is (Não)
+            :Exibir opção inválida;
+            :Solicitar novamente;
+        endwhile (Sim)
+
+        if (Adicionar vagas?) then (Sim)
+            :Solicitar quantidade de vagas;
+            :Calcular quantidade x R$ 60;
+            :Adicionar valor das vagas;
+        else (Não)
+            :Não adicionar vagas;
+        endif
+    endif
+
+else (Não)
+    :Não adicionar garagem;
+endif
+
+:Solicitar parcelas da imobiliária;
+
+while (Quantidade entre 1 e 5?) is (Não)
+    :Exibir opção inválida;
+    :Solicitar quantidade novamente;
+endwhile (Sim)
+
+:Calcular valor da parcela imobiliária;
+
+:Executar imprimir_informacoes();
+
+:Executar gerar_csv();
+
+:Criar arquivo orcamento.csv;
+:Escrever cabeçalho Cliente | Parcela | Valor;
+
+:Percorrer parcelas de 1 até 12;
+:Escrever cada parcela no CSV;
+:Imprimir cada parcela no terminal;
+
+:Exibir mensagem de sucesso;
+
+stop
+
+@enduml
