@@ -151,14 +151,14 @@ while garagem != 'S' and garagem != 'N':
 
 if garagem == 'S' and tipo_alocacao == '1':
 
-    print('Você escolheu garagem para casa!')     
+    print('Você escolheu garagem para apartemento!')     
     valor_total += 300
     print('\n')
     print('-' * 50)
 
 if garagem == 'S' and tipo_alocacao == '2':
     
-    print('Você escolheu garagem para apartamento!')     
+    print('Você escolheu garagem para casa!')     
     valor_total += 300
     print('\n')
     print('-' * 50)
